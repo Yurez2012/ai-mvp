@@ -45,6 +45,10 @@
                                 <a href="{{route('profile')}}"
                                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                                    aria-current="page">Skills</a>
+
+                                <a href="{{route('time')}}"
+                                   class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                                   aria-current="page">Available time</a>
                             @endif
                         </div>
                     </div>

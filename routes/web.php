@@ -10,6 +10,7 @@ use App\Http\Controllers\Customer\PaymentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Programmer\ProfileController;
 use App\Http\Controllers\Programmer\UserSkillController;
+use App\Http\Controllers\Programmer\UserTimesController;
 use App\Http\Controllers\Programmer\WorkScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register')
 Route::group(['middleware' => 'auth'], function () {
     //programmer
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/time', [UserTimesController::class, 'index'])->name('time');
+    Route::post('/time_store', [UserTimesController::class, 'store'])->name('time_store');
     Route::get('/work_schedule', [WorkScheduleController::class, 'index'])->name('work_schedule');
     Route::post('/user/{user}/skill', [UserSkillController::class, 'store'])->name('user_skill');
 
