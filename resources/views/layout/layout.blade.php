@@ -26,7 +26,15 @@
                                class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
                                aria-current="page">Home</a>
                             @if(auth()->user() && auth()->user()->type == 1)
-
+                                <a href="{{route('benches')}}"
+                                   class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                                   aria-current="page">Benches</a>
+                                <a href="{{route('order')}}"
+                                   class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                                   aria-current="page">Orders</a>
+                                <a href="{{route('customer_work_schedule')}}"
+                                   class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                                   aria-current="page">Work Schedule</a>
                             @endif
 
                             @if(auth()->user() && auth()->user()->type == 2)

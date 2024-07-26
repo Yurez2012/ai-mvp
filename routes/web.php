@@ -4,6 +4,9 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Customer\BenchBookingController;
 use App\Http\Controllers\Customer\BenchController;
+use App\Http\Controllers\Customer\CustomerWorkScheduleController;
+use App\Http\Controllers\Customer\OrderController;
+use App\Http\Controllers\Customer\PaymentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Programmer\ProfileController;
 use App\Http\Controllers\Programmer\UserSkillController;
@@ -26,4 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     //customer
     Route::get('/benches', [BenchController::class, 'index'])->name('benches');
     Route::get('/benches_booking/{benches_booking}', BenchBookingController::class)->name('benches_booking');
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
+    Route::post('/payment', [PaymentController::class, 'store'])->name('payment_store');
+    Route::get('/customer_work_schedule', [CustomerWorkScheduleController::class, 'index'])->name('customer_work_schedule');
+    Route::get('/order', [OrderController::class, 'index'])->name('order');
 });

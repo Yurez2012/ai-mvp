@@ -61,4 +61,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserBenches::class, 'user_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id');
+    }
 }
