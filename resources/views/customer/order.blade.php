@@ -19,6 +19,9 @@
                                     <p class="text-sm font-semibold leading-6 text-gray-300">{{$product->user->email}}</p>
                                 </div>
                             </div>
+                            <p class="mb-2">
+                                Technology
+                            </p>
                             <div class="flex flex-wrap gap-1">
                                 @foreach($product->user->skills as $skill)
                                     <span
@@ -27,12 +30,16 @@
                                     </span>
                                 @endforeach
                             </div>
+                            <p class="mt-3 mb-2">
+                                Available time for call
+                            </p>
                             <div class="flex flex-wrap gap-1">
                                 @foreach($product->user->times as $time)
-                                    <span
-                                        class="bg-amber-600 rounded-3xl px-5 h-6 text-sm flex items-center">
-                                        12:00
-                                    </span>
+                                    <a href="">
+                                        <span class="bg-amber-900 rounded-3xl px-5 h-6 text-sm flex items-center">
+                                            {{$time->time}}
+                                        </span>
+                                    </a>
                                 @endforeach
                             </div>
                         </div>
