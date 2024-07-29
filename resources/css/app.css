@@ -108,6 +108,7 @@ button, input, optgroup, select, textarea {
     line-height: inherit;
     margin: 0;
     padding: 0;
+    padding-left: 8px;
 }
 
 button, select {

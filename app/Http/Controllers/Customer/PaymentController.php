@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Actions\Order\StoreOrderAction;
 use App\Actions\OrderProduct\StoreOrderProductAction;
-use App\Actions\UserSkill\DeleteUserBenchAction;
+use App\Actions\UserBenches\DeleteUserBenchAction;
 
 class PaymentController
 {
@@ -24,7 +24,7 @@ class PaymentController
         $data = auth()->user()->benches->toArray();
 
         $order = $storeOrderAction->handle([
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
         ]);
 
         $storeOrderProductAction->handle($order, $data);

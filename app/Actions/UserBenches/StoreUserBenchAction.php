@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\UserSkill;
+namespace App\Actions\UserBenches;
 
 class StoreUserBenchAction
 {

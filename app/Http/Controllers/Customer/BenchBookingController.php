@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Actions\UserSkill\StoreUserBenchAction;
+use App\Actions\UserBenches\StoreUserBenchAction;
 use App\Repositories\UserRepository;
 
 class BenchBookingController

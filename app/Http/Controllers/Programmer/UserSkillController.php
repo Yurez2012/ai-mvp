@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Programmer;
 
-use App\Actions\UserSkill\StoreUserBenchAction;
+use App\Actions\UserSkill\StoreUserSkillAction;
 use App\Http\Requests\Auth\StoreUserRequest;
-use Illuminate\Http\Request;
 
 class UserSkillController
 {
-    public function store($user, StoreUserRequest $userRequest, StoreUserBenchAction $userSkillAction)
+    public function store($user, StoreUserRequest $userRequest, StoreUserSkillAction $userSkillAction)
     {
         $user = auth()->user();
 
