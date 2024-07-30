@@ -23,9 +23,16 @@
                         <template x-for="(time, index) in times" :key="index" class="mb-10">
                             <tr>
                                 <td>
-                                    <input id="time" type="datetime-local" autocomplete="Year" required
-                                           x-model="time.time"
-                                           x-bind:name="`times[${index}][time]`"
+                                    <input id="time" type="datetime-local"  required
+                                           x-model="time.start"
+                                           x-bind:name="`times[${index}][start]`"
+                                           class="h-10 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 text-black pl-3"
+                                           min="0" value="0">
+                                </td>
+                                <td>
+                                    <input id="time" type="datetime-local"  required
+                                           x-model="time.end"
+                                           x-bind:name="`times[${index}][end]`"
                                            class="h-10 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 text-black pl-3"
                                            min="0" value="0">
                                 </td>
@@ -54,7 +61,8 @@
             times: {!! json_encode($times) !!},
             addSkill() {
                 this.times.push({
-                    time: '',
+                    start: '',
+                    end: '',
                 });
             }
         }))

@@ -16,6 +16,7 @@ class UserTime extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'time',
+        'start',
+        'end',
     ];
 }
