@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -75,6 +77,8 @@ class User extends Authenticatable
      */
     public function times()
     {
-        return $this->hasMany(UserTime::class, 'user_id', 'id');
+        return $this->hasMany(UserTime::class, 'user_id', 'id')
+            ->whereDate('start',  '>=', Carbon::now()->startOfDay())
+            ->whereDate('end',  '<=', Carbon::now()->endOfDay());
     }
 }

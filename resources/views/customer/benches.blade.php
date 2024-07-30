@@ -7,28 +7,44 @@
                 <ul role="list">
                     @foreach($users as $user)
                         <li class="flex justify-between gap-x-6 py-5 mb-5 bg-gray-800 p-5">
-                            <div class="flex min-w-0 gap-x-4">
-                                <div class="flex flex-col gap-2">
-                                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
-                                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                         alt="">
-                                    <p class="text-sm font-semibold leading-6 text-gray-300">{{$user->name}}</p>
-                                </div>
-                                <div class="flex flex-wrap gap-1">
-                                    @foreach($user->skills as $skill)
-                                        <span class="bg-amber-600 rounded-3xl px-5 h-6 text-sm flex items-center">
+                            <form action="{{route('benches_booking', ['benches_booking' => $user])}}" method="POST">
+                                <div class="flex min-w-0 gap-x-4">
+                                    <div class="flex flex-col gap-2 w-20">
+                                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
+                                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                             alt="">
+                                        <p class="text-sm font-semibold leading-6 text-gray-300">{{$user->name}}</p>
+                                    </div>
+                                    <div class="flex flex-col gap-3">
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach($user->skills as $skill)
+                                                <span
+                                                    class="bg-amber-600 rounded-3xl px-5 h-6 text-sm flex items-center">
                                             {{$skill->technology->technology}} | {{$skill->year}} year
                                         </span>
-                                    @endforeach
+                                            @endforeach
+                                        </div>
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach($user->times as $time)
+                                                @foreach($time->period as $key => $period)
+                                                    <label
+                                                        class="bg-teal-900 rounded-3xl px-5 h-6 text-sm flex items-center"
+                                                        for="period{{$key}}">
+                                                        {{$period}}
+                                                        <input type="checkbox" name="period{{$key}}" id="period{{$key}}"
+                                                               value="1">
+                                                    </label>
+                                                @endforeach
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                <form action="{{route('benches_booking', ['benches_booking' => $user])}}">
+                                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                                     <button type="submit" class="btn btn-primary">
                                         Book
                                     </button>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </li>
                     @endforeach
                 </ul>
