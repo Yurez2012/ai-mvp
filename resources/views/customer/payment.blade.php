@@ -21,6 +21,13 @@
                                         </span>
                                     @endforeach
                                 </div>
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach($bench->times as $time)
+                                        <label class="bg-teal-900 rounded-3xl px-5 h-6 text-sm flex items-center">
+                                            {{Carbon\Carbon::parse($time->start)->format('H:m')}} - {{Carbon\Carbon::parse($time->end)->format('H:m')}}
+                                        </label>
+                                    @endforeach
+                                </div>
                             </div>
                         </li>
                     @endforeach
@@ -113,34 +120,24 @@
                             <div
                                 class="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
                                 <div class="space-y-2">
-                                    <dl class="flex items-center justify-between gap-4">
-                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Original
-                                            price
-                                        </dt>
-                                        <dd class="text-base font-medium text-gray-900 dark:text-white">$6,592.00</dd>
-                                    </dl>
+                                    <?php $money = 0 ?>
+                                    @foreach(auth()->user()->benches as $bench)
+                                        @foreach($bench->times as $time)
+                                                <?php ++$money ?>
+                                        @endforeach
+                                    @endforeach
 
                                     <dl class="flex items-center justify-between gap-4">
-                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
-                                        <dd class="text-base font-medium text-green-500">-$299.00</dd>
-                                    </dl>
-
-                                    <dl class="flex items-center justify-between gap-4">
-                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store
-                                            Pickup
-                                        </dt>
-                                        <dd class="text-base font-medium text-gray-900 dark:text-white">$99</dd>
-                                    </dl>
-
-                                    <dl class="flex items-center justify-between gap-4">
-                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
-                                        <dd class="text-base font-medium text-gray-900 dark:text-white">$799</dd>
+                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Original</dt>
+                                        <dd class="text-base font-medium text-green-500"> ${{$money}}</dd>
                                     </dl>
                                 </div>
 
                                 <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                                     <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                                    <dd class="text-base font-bold text-gray-900 dark:text-white">$7,191.00</dd>
+                                    <dd class="text-base font-bold text-gray-900 dark:text-white">
+                                        ${{$money}}
+                                    </dd>
                                 </dl>
                             </div>
 

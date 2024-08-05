@@ -51,4 +51,18 @@ class UserRepository extends Repository
 
         return $query->get();
     }
+
+    /**
+     * @param       $userId
+     * @param array $relation
+     *
+     * @return mixed
+     */
+    public function getUserBenchesByUserId($userId, array $relation = [])
+    {
+        return $this->model
+            ->with($relation)
+            ->where('id', $userId)
+            ->first();
+    }
 }

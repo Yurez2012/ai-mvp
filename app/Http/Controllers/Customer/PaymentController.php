@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Customer;
 use App\Actions\Order\StoreOrderAction;
 use App\Actions\OrderProduct\StoreOrderProductAction;
 use App\Actions\UserBenches\DeleteUserBenchAction;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Arr;
 
 class PaymentController
 {
@@ -17,17 +19,18 @@ class PaymentController
     (
         StoreOrderAction        $storeOrderAction,
         StoreOrderProductAction $storeOrderProductAction,
-        DeleteUserBenchAction   $deleteUserBenchAction
+        DeleteUserBenchAction   $deleteUserBenchAction,
+        UserRepository          $userRepository
     )
     {
 
-        $data = auth()->user()->benches->toArray();
+        $data = $userRepository->getUserBenchesByUserId(auth()->user()->id, ['benches.times'])->toArray();
 
         $order = $storeOrderAction->handle([
             'user_id' => auth()->user()->id,
         ]);
 
-        $storeOrderProductAction->handle($order, $data);
+        $storeOrderProductAction->handle($order, Arr::get($data, 'benches'));
 
         $deleteUserBenchAction->handle(auth()->user());
 

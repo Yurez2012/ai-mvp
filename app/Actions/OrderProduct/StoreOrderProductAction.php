@@ -15,9 +15,11 @@ class StoreOrderProductAction
     public function handle($order, array $data)
     {
         foreach ($data as $datum) {
-            $order->products()->create([
+            $product = $order->products()->create([
                 'programmer_id' => Arr::get($datum, 'programmer_id'),
             ]);
+
+            $product->times()->createMany(Arr::get($datum, 'times'));
         }
     }
 }
