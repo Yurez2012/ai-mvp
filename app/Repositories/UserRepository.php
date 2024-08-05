@@ -27,7 +27,6 @@ class UserRepository extends Repository
     {
         $query = $this->model
             ->with($relation)
-            ->whereNotIn('id', auth()->user()->benches->pluck('programmer_id')->toArray())
             ->where('type', 2)
             ->whereHas('times');
 

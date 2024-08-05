@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class UserBenches extends Authenticatable
+class UserBenchTime extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -16,16 +16,8 @@ class UserBenches extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'programmer_id',
+        'user_bench_id',
+        'start',
+        'end',
     ];
-
-    public function user()
-    {
-        return $this->hasOne(User::class, 'id', 'programmer_id');
-    }
-
-    public function times()
-    {
-        return $this->hasMany(UserBenchTime::class, 'user_bench_id');
-    }
 }

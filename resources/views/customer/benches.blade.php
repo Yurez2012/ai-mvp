@@ -5,7 +5,8 @@
         <form action="{{route('benches')}}" method="GET">
             @csrf
             <div class="flex gap-4 mb-5 items-center">
-                <select name="technologies[]" multiple id="countries_multiple" class="h-13 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select name="technologies[]" multiple id="countries_multiple"
+                        class="h-13 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     @foreach($technologies as $id => $value)
                         <option value="{{$id}}">{{$value}}</option>
                     @endforeach
@@ -21,6 +22,8 @@
                     @foreach($users as $user)
                         <li class="flex justify-between gap-x-6 py-5 mb-5 bg-gray-800 p-5">
                             <form action="{{route('benches_booking', ['benches_booking' => $user])}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="bench_id" value="{{$user->id}}">
                                 <div class="flex min-w-0 gap-x-4">
                                     <div class="flex flex-col gap-2 w-20">
                                         <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
@@ -44,8 +47,8 @@
                                                         class="bg-teal-900 rounded-3xl px-5 h-6 text-sm flex items-center"
                                                         for="period{{$key}}">
                                                         {{$period}}
-                                                        <input type="checkbox" name="period{{$key}}" id="period{{$key}}"
-                                                               value="1">
+                                                        <input type="checkbox" name="period[]" id="period{{$key}}"
+                                                               value="{{$period}}">
                                                     </label>
                                                 @endforeach
                                             @endforeach
@@ -69,7 +72,7 @@
                         <ul class="divide-y" role="list">
                             @foreach(auth()->user()->benches as $bench)
                                 <li class="flex justify-between gap-x-6 py-5 p-5">
-                                    <div class="flex flex-col  min-w-0 gap-x-4  w-full">
+                                    <div class="flex flex-col min-w-0 gap-x-4  w-full">
                                         <div class="min-w-0 flex flex-row justify-between items-center mb-5">
                                             <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
                                                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -84,12 +87,29 @@
                                             </span>
                                             @endforeach
                                         </div>
+                                        <div class="mt-5 flex flex-col gap-1">
+                                            @foreach($bench->times as $time)
+                                                <label class="bg-teal-900 rounded-3xl px-5 h-6 text-sm flex items-center">
+                                                    {{Carbon\Carbon::parse($time->start)->format('H:m')}} - {{Carbon\Carbon::parse($time->end)->format('H:m')}}
+                                                </label>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </li>
                             @endforeach
                             <li></li>
                         </ul>
                         <div class="p-5">
+                            <?php $money = 0 ?>
+
+                            @foreach(auth()->user()->benches as $bench)
+                                @foreach($bench->times as $time)
+                                    <?php ++$money ?>
+                                @endforeach
+                            @endforeach
+                            <p class="px-2 text-center mb-2 text-amber-600">
+                                Pay ${{$money}}
+                            </p>
                             <button type="submit"
                                     class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 Payment Process

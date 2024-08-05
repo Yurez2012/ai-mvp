@@ -18,4 +18,9 @@ class OrderProduct extends Authenticatable
     {
         return $this->hasOne(User::class, 'id', 'programmer_id');
     }
+
+    public function times()
+    {
+        return $this->hasMany(OrderProductTime::class, 'product_id');
+    }
 }

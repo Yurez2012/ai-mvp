@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //customer
     Route::get('/benches', [BenchController::class, 'index'])->name('benches');
-    Route::get('/benches_booking/{benches_booking}', BenchBookingController::class)->name('benches_booking');
+    Route::post('/benches_booking', [BenchBookingController::class, 'store'])->name('benches_booking');
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment_store');
     Route::get('/customer_work_schedule', [CustomerWorkScheduleController::class, 'index'])->name('customer_work_schedule');
