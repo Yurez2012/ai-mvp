@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Support\Arr;
 
 class UserRepository extends Repository
 {
@@ -22,12 +23,33 @@ class UserRepository extends Repository
     /**
      * @return mixed
      */
-    public function getBenchesList($relation = [])
+    public function getBenchesList($relation = [], $filter)
     {
-        return $this->model
+        $query = $this->model
             ->with($relation)
             ->whereNotIn('id', auth()->user()->benches->pluck('programmer_id')->toArray())
             ->where('type', 2)
-            ->get();
+            ->whereHas('times');
+
+        if (count(Arr::get($filter, 'technologies', [])) > 0) {
+            $query->whereHas('skills', function ($query) use ($filter) {
+                $query->whereIn('technology_id', Arr::get($filter, 'technologies'));
+            });
+        }
+
+        if (Arr::has($filter, 'date_start') && Arr::get($filter, 'date_start')) {
+            $query->whereHas('times', function ($query) use ($filter) {
+                $query->whereDate('start', '>=', Arr::get($filter, 'date_start'));
+            });
+        }
+
+
+        if (Arr::has($filter, 'date_end') && Arr::get($filter, 'date_end')) {
+            $query->whereHas('times', function ($query) use ($filter) {
+                $query->whereDate('end', '<=', Arr::get($filter, 'date_end'));
+            });
+        }
+
+        return $query->get();
     }
 }

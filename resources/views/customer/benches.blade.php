@@ -2,6 +2,19 @@
 
 @section('content')
     <div class="container mx-auto mt-5">
+        <form action="{{route('benches')}}" method="GET">
+            @csrf
+            <div class="flex gap-4 mb-5 items-center">
+                <select name="technologies[]" multiple id="countries_multiple" class="h-13 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    @foreach($technologies as $id => $value)
+                        <option value="{{$id}}">{{$value}}</option>
+                    @endforeach
+                </select>
+                <input class="h-10" type="date" name="date_start">
+                <input class="h-10" type="date" name="date_end">
+                <button class="px-5 py-2" type="submit">Filter</button>
+            </div>
+        </form>
         <div class="flex gap-6">
             <div class="w-9/12">
                 <ul role="list">
@@ -20,8 +33,8 @@
                                             @foreach($user->skills as $skill)
                                                 <span
                                                     class="bg-amber-600 rounded-3xl px-5 h-6 text-sm flex items-center">
-                                            {{$skill->technology->technology}} | {{$skill->year}} year
-                                        </span>
+                                                    {{$skill->technology->technology}} | {{$skill->year}} year
+                                                </span>
                                             @endforeach
                                         </div>
                                         <div class="flex flex-wrap gap-1">
