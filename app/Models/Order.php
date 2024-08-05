@@ -22,4 +22,9 @@ class Order extends Authenticatable
     {
         return $this->hasMany(OrderProduct::class, 'order_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

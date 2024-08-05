@@ -75,6 +75,14 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function products()
+    {
+        return $this->hasMany(OrderProduct::class, 'programmer_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function times()
     {
         return $this->hasMany(UserTime::class, 'user_id', 'id')

@@ -56,9 +56,10 @@ class CalendarHelper
             foreach (Arr::get($datum, 'products', []) as $product) {
                 foreach (Arr::get($product, 'times') as $time) {
                     $result[Carbon::parse($time['start'])->format('Y-m-d')][] = [
-                        'start'     => Carbon::parse($time['start'])->format('H:m'),
-                        'end'       => Carbon::parse($time['end'])->format('H:m'),
-                        'full_name' => $product['user']['name'] ?? '',
+                        'start'       => Carbon::parse($time['start'])->format('H:m'),
+                        'end'         => Carbon::parse($time['end'])->format('H:m'),
+                        'full_name'   => $product['user']['name'] ?? '',
+                        'client_name' => $product['order']['user']['name'] ?? '',
                     ];
                 }
             }
